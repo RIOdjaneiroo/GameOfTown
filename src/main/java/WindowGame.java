@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class WindowGame extends JFrame {
     public WindowGame() {
-        setTitle("Game Window"); // налаштовуємо заголовок вікна
+        setTitle("Гра в міста"); // налаштовуємо заголовок вікна
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // встановлюємо, що вікно буде закриватись при натисканні на "х"
         setSize(500, 400);   // встановлюємо розмір вікна
         setLocationRelativeTo(null);    //   по центру екрана
@@ -17,17 +17,17 @@ public class WindowGame extends JFrame {
         Dimension textFieldSize = textField.getPreferredSize();
         textFieldSize.height = 30; // Змінюємо висоту textField
         textField.setPreferredSize(textFieldSize);
-        JLabel cityLabel = new JLabel("enter the city"); // створюємо напис "enter the city"
+        JLabel cityLabel = new JLabel("введіть місто"); // створюємо напис "enter the city"
         textField.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20)); // відступ справа для textField
-        cityLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 100)); // відступ справа для cityLabel
+        cityLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15)); // відступ справа для cityLabel
         firstPanel.add(textField);  // додаємо текстове поле і напис на першу панель
         firstPanel.add(cityLabel);
 
-        JPanel secondPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 10)); // Вирівнювання по центру, відступи
+        JPanel secondPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 65, 10)); // Вирівнювання по центру, відступи
         // створюємо другу панель для групування компонентів (кнопка та надпис)
-        JLabel compLabel = new JLabel("computer say:");  // створюємо напис "computer say:"
+        JLabel compLabel = new JLabel("комп'ютор каже:");  // створюємо напис "computer say:"
 
-        JButton submitButton = new JButton("make step");  // створюємо кнопку "make step" та додаємо обробник події
+        JButton submitButton = new JButton("           зробити хід          ");  // створюємо кнопку "make step" та додаємо обробник події
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
