@@ -25,7 +25,8 @@ public class WelcomeWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                // ...
+                WindowGame gameWindow = new WindowGame(); // Створюємо новий об'єкт WindowGame
+                gameWindow.setVisible(true); // Робимо його видимим
             }
         });
 
