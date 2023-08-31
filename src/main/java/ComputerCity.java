@@ -24,12 +24,12 @@ public class ComputerCity {
 			InputStream inputStream = url.openStream();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 			Gson gson = new Gson();
-			City[] cityArray = gson.fromJson(reader, City[].class);
+			DtoCity[] cityArray = gson.fromJson(reader, DtoCity[].class);
 
 			reader.close();
 
 			return List.of(cityArray).stream()
-					.map(City::getName)
+					.map(DtoCity::getName)
 					.collect(Collectors.toList());
 		} catch (IOException e) {
 			e.printStackTrace();
