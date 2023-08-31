@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ComputerCity {
+public class ServiceCity {
 	private final List<String> computerCity;
 
-	public ComputerCity(String jsonFilePath) {
+	public ServiceCity(String jsonFilePath) {
 		computerCity = loadCity(jsonFilePath);
 	}
 
