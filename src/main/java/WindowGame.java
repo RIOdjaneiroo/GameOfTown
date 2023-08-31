@@ -2,65 +2,96 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class WindowGame extends JFrame {
+    private JTextField cityTextField;
+    private JLabel computerResponseResultList;
+
+    private JButton makeMoveButton;
+
+    private ServiceCity serviceCity;
+    private LogicGame resultList;
+
     public WindowGame() {
-        setTitle("Гра в міста"); // налаштовуємо заголовок вікна
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // встановлюємо, що вікно буде закриватись при натисканні на "х"
-        setSize(500, 400);   // встановлюємо розмір вікна
-        setLocationRelativeTo(null);    //   по центру екрана
-        setResizable(false);           // не змінюємо розмір вікна на екрані при запуску
+        setTitle("Гра в міста");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(500, 400);
+        setLocationRelativeTo(null);
+        setResizable(false);
 
-        JPanel firstPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 10)); // Вирівнювання по центру, відступи  40
-        // створюємо панель для групування компонентів (перша панель)
-        JTextField textField = new JTextField(15);  // встановлюємо висоту текстового поля
-        Dimension textFieldSize = textField.getPreferredSize();
-        textFieldSize.height = 30; // Змінюємо висоту textField
-        textField.setPreferredSize(textFieldSize);
-        JLabel cityLabel = new JLabel("введіть місто"); // створюємо напис "enter the city"
-        textField.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20)); // відступ справа для textField
-        cityLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15)); // відступ справа для cityLabel
-        firstPanel.add(textField);  // додаємо текстове поле і напис на першу панель
+        JPanel firstPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 10));
+        cityTextField = new JTextField(15);
+        Dimension textFieldSize = cityTextField.getPreferredSize();
+        textFieldSize.height = 30;
+        cityTextField.setPreferredSize(textFieldSize);
+        JLabel cityLabel = new JLabel("введіть місто");
+        cityLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15));
+        cityTextField.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
         firstPanel.add(cityLabel);
+        firstPanel.add(cityTextField);
 
-        JPanel secondPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 65, 10)); // Вирівнювання по центру, відступи
-        // створюємо другу панель для групування компонентів (кнопка та надпис)
-        JLabel compLabel = new JLabel("комп'ютор каже:");  // створюємо напис "computer say:"
-
-        JButton submitButton = new JButton("           зробити хід          ");  // створюємо кнопку "make step" та додаємо обробник події
-        submitButton.addActionListener(new ActionListener() {
+        JPanel secondPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 65, 10));
+        computerResponseResultList = new JLabel();
+        makeMoveButton = new JButton("зробити хід");
+        makeMoveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                StringBuilder stringBuilder = new StringBuilder();
-                String city = textField.getText();
-                textField.setText("");
-
-                dispose();
-
-                // Open the main game window
-                // MainGameWindow mainGameWindow = new MainGameWindow();
-                // mainGameWindow.setVisible(true);
+                makeMove();
             }
         });
-        //submitButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10)); // Відступ справа для submitButton
-        //compLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10)); // Відступ справа для compLabel
+        secondPanel.add(computerResponseResultList);
+        secondPanel.add(makeMoveButton);
 
-
-        secondPanel.add(submitButton);  // додаємо кнопку та надпис на другу панель
-        secondPanel.add(compLabel);
-
-        add(Box.createVerticalStrut(100)); // відступ від верху
-        add(firstPanel);                      // додаємо першу панель до форми
-        add(secondPanel);                     // додаємо другу панель чи до вікна
-        add(Box.createVerticalStrut(150)); // Відступ від низу
+        add(Box.createVerticalStrut(100));
+        add(firstPanel);
+        add(secondPanel);
+        add(Box.createVerticalStrut(150));
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-        // використовуємо BoxLayout для всього контейнера
-        // встановлюємо менеджер розташування BoxLayout для всього вікна
+
+        serviceCity = new ServiceCity("file:///" + System.getProperty("user.dir") + "/src/main/dtoCities.json");
+        resultList = new LogicGame();
+    }
+
+    private void makeMove() {
+        StringBuilder stringBuilder = new StringBuilder();
+        String city = cityTextField.getText();
+
+        String result = resultList.addToResultCity(city);
+        if (result.equals("Місто повинно починатись на літеру, яка є останньою в останньому слові списку")
+                || result.equals("Місто вже є у списку, спробуйте інше") || result.equals("Введіть існуючу назву міста")) {
+            JOptionPane.showMessageDialog(this, result, "Помилка", JOptionPane.ERROR_MESSAGE);
+        } else if (result.equals("Computer wins!")) {
+            showGameResult("Комп'ютер переміг!");
+        } else {
+            resultList.addToResultListByHuman(city);
+            List<String> findCitiesInComputerList = serviceCity.getCity(city);
+            String resultComputerCityFound = resultList.addCityToCompList(findCitiesInComputerList);
+            if (resultComputerCityFound.equals("citynotfound")) {
+                showGameResult("Ви перемогли!");
+            } else {
+                for (int i = 0; i < resultList.getResultList().size(); i++) {
+                    stringBuilder.append(resultList.getResultList().get(i));
+                    if (i != resultList.getResultList().size() - 1) {
+                        stringBuilder.append(", ");
+                    }
+                }
+                computerResponseResultList.setText(stringBuilder.toString());
+            }
+        }
+        cityTextField.setText("");
+    }
+
+    private void showGameResult(String message) {
+        JOptionPane.showMessageDialog(this, message + "\nРахунок: " + LogicGame.humanScore + "-" + LogicGame.computerScore, "Результат", JOptionPane.INFORMATION_MESSAGE);
+        dispose();
     }
 
     public static void main(String[] args) {
-        WindowGame windowGame = new WindowGame();
-        windowGame.setVisible(true);
+        SwingUtilities.invokeLater(() -> {
+            WindowGame windowGame = new WindowGame();
+            windowGame.setVisible(true);
+        });
     }
 }
