@@ -4,4 +4,11 @@ public class DtoCity {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "DtoCity{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
