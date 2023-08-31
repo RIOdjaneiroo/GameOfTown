@@ -31,7 +31,10 @@ public class WindowGame extends JFrame {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Close the welcome window
+                StringBuilder stringBuilder = new StringBuilder();
+                String city = textField.getText();
+                textField.setText("");
+
                 dispose();
 
                 // Open the main game window
