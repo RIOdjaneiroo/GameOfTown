@@ -6,7 +6,7 @@ import java.util.List;
 
 public class WindowGame extends JFrame {
     private JTextField cityTextField;
-    private JLabel computerResponseResultList;
+    private JLabel responseCompList;
 
     private JButton makeMoveButton;
 
@@ -32,7 +32,7 @@ public class WindowGame extends JFrame {
         firstPanel.add(cityTextField);
 
         JPanel secondPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 65, 10));
-        computerResponseResultList = new JLabel();
+        responseCompList = new JLabel();
         makeMoveButton = new JButton("зробити хід");
         makeMoveButton.addActionListener(new ActionListener() {
             @Override
@@ -40,7 +40,8 @@ public class WindowGame extends JFrame {
                 makeMove();
             }
         });
-        secondPanel.add(computerResponseResultList);
+
+        secondPanel.add(responseCompList);
         secondPanel.add(makeMoveButton);
 
         add(Box.createVerticalStrut(100));
@@ -77,7 +78,7 @@ public class WindowGame extends JFrame {
                         stringBuilder.append(", ");
                     }
                 }
-                computerResponseResultList.setText(stringBuilder.toString());
+                responseCompList.setText(stringBuilder.toString());
             }
         }
         cityTextField.setText("");
