@@ -64,13 +64,13 @@ public class WindowGame extends JFrame {
                 || result.equals("Місто вже виказувалось, введіть інше") || result.equals("Введіть існуючу назву міста")) {
             JOptionPane.showMessageDialog(this, result, "Помилка", JOptionPane.ERROR_MESSAGE);
         } else if (result.equals("Computer wins!")) {
-            showGameResult("Комп'ютер переміг!");
+            optinPanelResult("Комп'ютер переміг!");
         } else {
             resultList.addToResultListByHuman(city);
             List<String> findCitiesInComputerList = serviceCity.getCity(city);
             String resultComputerCityFound = resultList.addCityToCompList(findCitiesInComputerList);
             if (resultComputerCityFound.equals("citynotfound")) {
-                showGameResult("Ви перемогли!");
+                optinPanelResult("Ви перемогли!");
             } else {
                 for (int i = 0; i < resultList.getResultList().size(); i++) {
                     stringBuilder.append(resultList.getResultList().get(i));
@@ -84,9 +84,13 @@ public class WindowGame extends JFrame {
         cityTextField.setText("");
     }
 
-    private void showGameResult(String message) {
-        JOptionPane.showMessageDialog(this, message + "\nРахунок: " + LogicGame.humanScore + "-" + LogicGame.computerScore, "Результат", JOptionPane.INFORMATION_MESSAGE);
-        dispose();
+    private void optinPanelResult(String message) {        // метод що виводить інформативне вікно
+        JOptionPane.showMessageDialog(this, message
+                // this: Вікно, яке відображатиме повідомлення. Може бути посиланням на поточне вікно або компонент (наприклад, JFrame).
+                + "\nРахунок: " + LogicGame.humanScore + "-"
+                + LogicGame.computerScore, "Результат", JOptionPane.INFORMATION_MESSAGE);//JOptionPane.INFORMATION_MESSAGE - параметр вказує тип повідомлення, яке буде відображатися в цьому випадку
+        // інформаційне  "Результат": Це заголовок діалогового вікна.
+        dispose();  // використовується для закриття поточного вікна
     }
 
     public static void main(String[] args) {
