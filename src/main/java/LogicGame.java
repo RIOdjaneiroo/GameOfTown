@@ -60,7 +60,7 @@ public class LogicGame {
 
     private void parseCityData() {
         try {
-            String filePath = "file:///" + System.getProperty("user.dir") + "/src/main/resources/dtoCities.json";
+            String filePath = "file:///" + System.getProperty("user.dir") + "/src/main/java/dtoCities.json";
             URL url = new URL(filePath);
 
             InputStream inputStream = url.openStream();
