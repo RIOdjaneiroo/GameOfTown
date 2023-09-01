@@ -61,7 +61,7 @@ public class WindowGame extends JFrame {
 
         String result = resultList.addToResultCity(city);
         if (result.equals("Місто повинно починатись на літеру, яка є останньою в останньому слові списку")
-                || result.equals("Місто вже є у списку, спробуйте інше") || result.equals("Введіть існуючу назву міста")) {
+                || result.equals("Місто вже виказувалось, введіть інше") || result.equals("Введіть існуючу назву міста")) {
             JOptionPane.showMessageDialog(this, result, "Помилка", JOptionPane.ERROR_MESSAGE);
         } else if (result.equals("Computer wins!")) {
             showGameResult("Комп'ютер переміг!");
