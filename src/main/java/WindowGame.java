@@ -50,7 +50,7 @@ public class WindowGame extends JFrame {
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
-        serviceCity = new ServiceCity("file:///" + System.getProperty("user.dir") + "/src/main/dtoCities.json");
+        serviceCity = new ServiceCity("file:///" + System.getProperty("user.dir") + "/src/main/java/dtoCities.json");
         resultList = new LogicGame();
     }
 
