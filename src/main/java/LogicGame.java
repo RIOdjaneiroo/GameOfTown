@@ -58,21 +58,19 @@ public class LogicGame {
         resultList.addLast(city);
     }
 
-    private void parseCityData() {
+    private void parseCityData() {         //метод для розбору даних з файлу JSON
         try {
             String filePath = "file:///" + System.getProperty("user.dir") + "/src/main/java/dtoCities.json";
-            URL url = new URL(filePath);
-
-            InputStream inputStream = url.openStream();
+            URL url = new URL(filePath); //створюємо об'єкт типу URL на основі рядка filePath, який містить шлях до файлу
+            InputStream inputStream = url.openStream(); //відкриває потік вводу (InputStream) для читання даних з URL, який було підготовлено
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-            Gson gson = new Gson();
-            DtoCity[] cities = gson.fromJson(reader, DtoCity[].class);
-
-            for (DtoCity city : cities) {
-                cityRegionMap.put(city.getName().toLowerCase(), ""); // Empty region for simplicity
+            // створюємо BufferedReader дозволить зручно читати дані з потоку вводу використовуючи InputStreamReader, що конвертує байтовий потік у текстовий вказуєм кодування UTF-8
+            Gson gson = new Gson(); // Створюємо обєкт Gson, який буде використовуватися для розбору даних в об'єкти.
+            DtoCity[] cities = gson.fromJson(reader, DtoCity[].class); //створюємо масив об'єктів типу DtoCity і заповнюємо інформацією про міста з буферу по шаблону
+            for (DtoCity city : cities) {             // читаємо масив і на його основі формуємо мапу з ключем "назва міста" і порожнім значенням
+                cityRegionMap.put(city.getName().toLowerCase(), ""); // пізніше використаємо
             }
-
-            reader.close();
+            reader.close();  // закриваємо рідер
         } catch (IOException e) {
             e.printStackTrace();
         }
