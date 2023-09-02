@@ -6,12 +6,10 @@ import java.util.List;
 
 public class WindowGame extends JFrame {
     private JTextField cityTextField;
-    private JLabel responseCompList;
-
     private JButton makeMoveButton;
-
     private ServiceCity serviceCity;
-    private LogicGame resultList;
+    private LogicGame logicGame;
+    private JLabel responseCompList;
 
     public WindowGame() {
         setTitle("Гра в міста");   // налаштовуємо заголовок вікна
@@ -49,41 +47,44 @@ public class WindowGame extends JFrame {
 
         JPanel thirdPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10)); // Вирівнювання по центру, відступи
         // створюємо третю панель для виводу процесу гри
-        responseCompList = new JLabel("привіт");
+        responseCompList = new JLabel("привіт");  // створюємо лейбл з вітанням
         thirdPanel.add(responseCompList);
 
-        add(Box.createVerticalStrut(100));
-        add(firstPanel);
-        add(secondPanel);
-        add(thirdPanel);
-        add(Box.createVerticalStrut(150));
+        add(Box.createVerticalStrut(100));   // відступ від верху
+        add(firstPanel);                           // додаємо першу панель до форми
+        add(secondPanel);                          // додаємо другу панель чи до вікна
+        add(thirdPanel);                           // додаємо третю панель чи до вікна
+        add(Box.createVerticalStrut(150));   // Відступ від низу
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        // використовуємо BoxLayout для всього контейнера
+        // встановлюємо менеджер розташування BoxLayout для всього вікна
 
         serviceCity = new ServiceCity("file:///" + System.getProperty("user.dir") + "/src/main/java/dtoCities.json");
-        resultList = new LogicGame();
+        //ініціалізуємо поля що ми обявили вище. створюємо клас і в конструктор передаємо шлях до файлу з містами
+        logicGame = new LogicGame();    // так само ініціалізуємо поле що ми обявили вище
     }
 
     private void makeMove() {
-        StringBuilder stringBuilder = new StringBuilder();
-        String city = cityTextField.getText();
+        StringBuilder stringBuilder = new StringBuilder();  // створюэмо стрынг білдер для збирання в рядок слів
+        String city = cityTextField.getText(); // створюємо змінну в яку передаємо введений в текстове поле текст
 
-        String result = resultList.addToResultCity(city);
+        String result = logicGame.addToResultCity(city); // створюємо строкову змінну результату що заповнюється методом з логіки на основі переданого вище параметру
         if (result.equals("Місто повинно починатись на літеру, яка є останньою в останньому слові списку")
                 || result.equals("Місто вже виказувалось, введіть інше") || result.equals("Введіть існуючу назву міста")) {
             JOptionPane.showMessageDialog(this, result, "Помилка", JOptionPane.ERROR_MESSAGE);
         } else if (result.equals("Computer wins!")) {
             optinPanelResult("Комп'ютер переміг!");
         } else {
-            resultList.addToResultListByHuman(city);
+            logicGame.addToResultListByHuman(city);
             List<String> findCitiesInComputerList = serviceCity.getCity(city);
-            String resultComputerCityFound = resultList.addCityToCompList(findCitiesInComputerList);
+            String resultComputerCityFound = logicGame.addCityToCompList(findCitiesInComputerList);
             if (resultComputerCityFound.equals("citynotfound")) {
                 optinPanelResult("Ви перемогли!");
             } else {
-                for (int i = 0; i < resultList.getResultList().size(); i++) {
-                    stringBuilder.append(resultList.getResultList().get(i));
-                    if (i != resultList.getResultList().size() - 1) {
+                for (int i = 0; i < logicGame.getResultList().size(); i++) {
+                    stringBuilder.append(logicGame.getResultList().get(i));
+                    if (i != logicGame.getResultList().size() - 1) {
                         stringBuilder.append(", ");
                     }
                 }
