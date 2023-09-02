@@ -47,14 +47,25 @@ public class WindowGame extends JFrame {
 
         JPanel thirdPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10)); // Вирівнювання по центру, відступи
         // створюємо третю панель для виводу процесу гри
-        responseCompList = new JLabel("привіт");  // створюємо лейбл з вітанням
+        responseCompList = new JLabel("<html>привіт привіт привіт привіт привіт привіт привіт привіт привіт привіт привіт привіт привіт</html>");  // створюємо лейбл з вітанням
+        responseCompList.setPreferredSize(new Dimension(400, 50)); // Встановлюємо розмір мітки
+        responseCompList.setHorizontalAlignment(SwingConstants.LEFT); // Встановлюємо вирівнювання тексту зліва
         thirdPanel.add(responseCompList);
+
+        //JScrollPane thirdPanelScrollPane = new JScrollPane(thirdPanel);
+        //thirdPanelScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        //JLabel label = new JLabel("<html>привіт привіт привіт привіт привіт привіт привіт привіт привіт привіт привіт привіт привіт</html>");  // створюємо лейбл з вітанням
+        //label.setPreferredSize(new Dimension(400, 70)); // Встановлюємо розмір мітки
+        //thirdPanelScrollPane.add(label);
+        //////////////////////////////////thirdPanel.add(responseCompList);
+
 
         add(Box.createVerticalStrut(100));   // відступ від верху
         add(firstPanel);                           // додаємо першу панель до форми
         add(secondPanel);                          // додаємо другу панель чи до вікна
         add(thirdPanel);                           // додаємо третю панель чи до вікна
-        add(Box.createVerticalStrut(150));   // Відступ від низу
+        //add(thirdPanelScrollPane);
+        add(Box.createVerticalStrut(10));   // Відступ від низу
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         // використовуємо BoxLayout для всього контейнера
