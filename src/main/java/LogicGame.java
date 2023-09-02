@@ -39,7 +39,8 @@ public class LogicGame {
 
 
 
-    public String addToResultCity(String city) {
+    public String addToResultCity(String city) {  // метод що робить перевірку на наявність міста в спику
+        // і формує ключову фразу для інформативного вікна
         if (isExistInList(city)) {
             return "Місто вже є у списку, спробуйте інше";
         } else if (city.equalsIgnoreCase("здаюсь")) {
@@ -47,13 +48,13 @@ public class LogicGame {
         } else if (getResultList().size() > 1 && !isFirstLetterCorrect(city, getResultList().getLast())) {
             return "Місто повинно починатись на літеру, яка є останньою в останньому слові списку";
         } else if (!isRealCity(city)) {
-            return "Введіть існуючу назву міста";
+            return "Такого міста немає в наданому списку, повторіть спробу";
         } else {
             return city;
         }
     }
 
-    public void addToResultListByHuman(String city) {
+    public void addCityToResultList(String city) { // метод що додає гравцю бал та заносить місто до результуючого списку
         humanScore++;
         resultList.addLast(city);
     }

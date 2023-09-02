@@ -82,12 +82,12 @@ public class WindowGame extends JFrame {
 
         String result = logicGame.addToResultCity(city); // створюємо строкову змінну результату що заповнюється методом з логіки на основі переданого вище параметру
         if (result.equals("Місто повинно починатись на літеру, яка є останньою в останньому слові списку")
-                || result.equals("Місто вже виказувалось, введіть інше") || result.equals("Введіть існуючу назву міста")) {
+                || result.equals("Місто вже виказувалось, введіть інше") || result.equals("Такого міста немає в наданому списку, повторіть спробу")) {
             JOptionPane.showMessageDialog(this, result, "Помилка", JOptionPane.ERROR_MESSAGE);
         } else if (result.equals("Computer wins!")) {
             optinPanelResult("Комп'ютер переміг!");
         } else {
-            logicGame.addToResultListByHuman(city);
+            logicGame.addCityToResultList(city);
             List<String> findCitiesInComputerList = serviceCity.getCity(city);
             String resultComputerCityFound = logicGame.addCityToCompList(findCitiesInComputerList);
             if (resultComputerCityFound.equals("citynotfound")) {
