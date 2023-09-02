@@ -14,26 +14,29 @@ public class WindowGame extends JFrame {
     private LogicGame resultList;
 
     public WindowGame() {
-        setTitle("Гра в міста");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500, 400);
-        setLocationRelativeTo(null);
-        setResizable(false);
+        setTitle("Гра в міста");   // налаштовуємо заголовок вікна
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // встановлюємо, що вікно буде закриватись при натисканні на "х"
+        setSize(500, 400); // встановлюємо розмір вікна
+        setLocationRelativeTo(null);   //   по центру екрана
+        setResizable(false);           // не змінюємо розмір вікна на екрані при запуску
 
-        JPanel firstPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 10));
-        cityTextField = new JTextField(15);
-        Dimension textFieldSize = cityTextField.getPreferredSize();
-        textFieldSize.height = 30;
-        cityTextField.setPreferredSize(textFieldSize);
-        JLabel cityLabel = new JLabel("введіть місто");
-        cityLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15));
-        cityTextField.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
+        JPanel firstPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 10)); // Вирівнювання по центру, відступи  40
+        // створюємо панель для групування компонентів (перша панель)
+        cityTextField = new JTextField(15);                      // встановлюємо ширину текстового поля
+        Dimension textFieldSize = cityTextField.getPreferredSize();    // створюэмо змінну типу інтервал
+        textFieldSize.height = 30;                                    // змінюємо висоту textField
+        cityTextField.setPreferredSize(textFieldSize);                //встановлюємо попередньо обчислені розміри
+        JLabel cityLabel = new JLabel("введіть місто");          // створюємо напис "введіть місто"
+        cityLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15)); // відступ справа для cityLabel
+        cityTextField.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));  // відступ справа для textField
+        firstPanel.add(cityTextField);                              // додаємо текстове поле і напис на першу панель
         firstPanel.add(cityLabel);
-        firstPanel.add(cityTextField);
 
-        JPanel secondPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 65, 10));
-        responseCompList = new JLabel();
-        makeMoveButton = new JButton("зробити хід");
+        JPanel secondPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 65, 10)); // Вирівнювання по центру, відступи
+        // створюємо другу панель для групування компонентів (кнопка та надпис)
+        JLabel compLabel = new JLabel("комп'ютор каже:");  // створюємо напис "комп'ютор каже:"
+
+        makeMoveButton = new JButton("зробити хід");   // створюємо кнопку "зробити хід" та додаємо обробник події
         makeMoveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -41,12 +44,18 @@ public class WindowGame extends JFrame {
             }
         });
 
-        secondPanel.add(responseCompList);
         secondPanel.add(makeMoveButton);
+        secondPanel.add(compLabel);
+
+        JPanel thirdPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10)); // Вирівнювання по центру, відступи
+        // створюємо третю панель для виводу процесу гри
+        responseCompList = new JLabel("привіт");
+        thirdPanel.add(responseCompList);
 
         add(Box.createVerticalStrut(100));
         add(firstPanel);
         add(secondPanel);
+        add(thirdPanel);
         add(Box.createVerticalStrut(150));
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
