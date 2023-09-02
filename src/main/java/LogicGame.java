@@ -39,7 +39,7 @@ public class LogicGame {
 
 
 
-    public String addToResultCity(String city) {
+    public String addToResultCity(String city) {  // метод що робить перевірку на наявність міста в спику
         if (isExistInList(city)) {
             return "Місто вже є у списку, спробуйте інше";
         } else if (city.equalsIgnoreCase("здаюсь")) {
