@@ -26,15 +26,15 @@ public class LogicGame {
         }
         return cityRegionMap.containsKey(city.toLowerCase());
     }
-    public String addCityToCompList(List<String> findCitiesInComputerList) {
-        for (String compCity : findCitiesInComputerList) {
-            if (!resultList.contains(compCity)) {
-                computerScore++;
-                resultList.addLast(compCity);
-                return compCity;
+    public String addCityToCompList(List<String> listCityCompFind) { // метод що перевіряє чи містить результуючий список місто
+        for (String cityTown : listCityCompFind) { // циклом перевіряємо переданий масив                          повертає строку
+            if (!resultList.contains(cityTown)) {    // якщо результуючий список не містить місто зі списку
+                computerScore++;                    // додаємо компютору бал
+                resultList.addLast(cityTown);       // додаємо місто до результуючого списку
+                return cityTown;                    // виводимо місто в результат
             }
         }
-        return "citynotfound";
+        return "citynotfound";                      // і виводимо notfound"
     }
 
 
