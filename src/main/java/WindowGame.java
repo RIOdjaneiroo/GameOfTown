@@ -10,6 +10,7 @@ public class WindowGame extends JFrame {
     private ServiceCity serviceCity;
     private LogicGame logicGame;
     private JLabel responseCompList;
+    ImageIcon icon;
 
     public WindowGame() {
         setTitle("Гра в міста");   // налаштовуємо заголовок вікна
@@ -17,6 +18,8 @@ public class WindowGame extends JFrame {
         setSize(500, 400); // встановлюємо розмір вікна
         setLocationRelativeTo(null);   //   по центру екрана
         setResizable(false);           // не змінюємо розмір вікна на екрані при запуску
+        icon = new ImageIcon("src/main/java/favicon.png");
+        this.setIconImage(icon.getImage());
 
         JPanel firstPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 10)); // Вирівнювання по центру, відступи  40
         // створюємо панель для групування компонентів (перша панель)
