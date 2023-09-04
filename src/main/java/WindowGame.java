@@ -82,7 +82,10 @@ public class WindowGame extends JFrame {
     private void makeMove() {
         StringBuilder stringBuilder = new StringBuilder();  // створюэмо стрынг білдер для збирання в рядок слів
         String city = cityTextField.getText(); // створюємо змінну в яку передаємо введений в текстове поле текст
-
+        if (city.isEmpty()) {                 // ця перевірка використовується для гравців що не вводять вісто, а без кіння клацають зробити хід
+            JOptionPane.showMessageDialog(this, "Введіть місто перед натисканням кнопки 'Зробити хід'.", "Помилка", JOptionPane.ERROR_MESSAGE);
+            return; // Перервати виконання методу, якщо місто не введено
+        }
         String result = logicGame.addToResultCity(city); // створюємо строкову змінну результату що заповнюється методом з логіки на основі переданого вище параметру
         if (result.equals("Місто повинно починатись на літеру, яка є останньою в останньому слові списку")
                 || result.equals("Місто вже виказувалось, введіть інше") || result.equals("Такого міста немає в наданому списку, повторіть спробу")) {
@@ -102,7 +105,7 @@ public class WindowGame extends JFrame {
                         stringBuilder.append(", ");
                     }
                 }
-                responseCompList.setText(stringBuilder.toString());
+                responseCompList.setText("<html>" + stringBuilder.toString() + "</html>"); // вставляємо результат в HTML-теги щоб зручно дивитись за грою
             }
         }
         cityTextField.setText("");
