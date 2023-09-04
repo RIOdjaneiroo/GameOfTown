@@ -19,7 +19,7 @@ public class WelcomeWindow extends JFrame {
         welcomeLabel.setFont(newFont); // Встановлюємо шрифт для мітки
         add(welcomeLabel, BorderLayout.CENTER);
 
-        JButton startButton = new JButton("Катир");
+        JButton startButton = new JButton("Далі");
         startButton.setFont(newFont); // Встановлюємо шрифт для кнопки
         startButton.addActionListener(new ActionListener() {
             @Override
