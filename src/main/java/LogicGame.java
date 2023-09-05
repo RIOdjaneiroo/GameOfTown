@@ -20,6 +20,7 @@ public class LogicGame {
     private boolean isFirstLetterCorrect(String city, String lastCity) {
         return city.toLowerCase().charAt(0) == lastCity.toLowerCase().charAt(lastCity.length() - 1);
     }
+
     private boolean isRealCity(String city) {
         if (cityRegionMap.isEmpty()) {
             parseCityData();
@@ -28,7 +29,8 @@ public class LogicGame {
     }
     public String addCityToCompList(List<String> listCityCompFind) { // метод що перевіряє чи містить результуючий список місто
         for (String cityTown : listCityCompFind) { // циклом перевіряємо переданий масив                          повертає строку
-            if (!resultList.contains(cityTown)) {    // якщо результуючий список не містить місто зі списку
+            String cityInLowerCase = cityTown.toLowerCase(); // Переводимо місто в нижній регістр
+            if (!resultList.stream().anyMatch(i -> i.equalsIgnoreCase(cityInLowerCase))) {    // якщо результуючий список не містить місто зі списку без врахування регісту
                 computerScore++;                    // додаємо компютору бал
                 resultList.addLast(cityTown);       // додаємо місто до результуючого списку
                 return cityTown;                    // виводимо місто в результат
@@ -39,17 +41,16 @@ public class LogicGame {
 
 
 
-    public String addToResultCity(String city) {  // метод що робить перевірку на наявність міста в спику
-        // і формує ключову фразу для інформативного вікна
-        if (isExistInList(city)) {
-            return "Місто вже є у списку, спробуйте інше";
-        } else if (city.equalsIgnoreCase("здаюсь")) {
+    public String addToResultCity(String city) {  // метод що робить перевірку введеного міста перед тим як вивести в лейбл
+
+         if (city.equalsIgnoreCase("здаюсь")) {
             return "Computer wins!";
         } else if (getResultList().size() > 1 && !isFirstLetterCorrect(city, getResultList().getLast())) {
-            return "Місто повинно починатись на літеру, яка є останньою в останньому слові списку";
+            return "Місто повинно починатись на останню літеру останнього написаного комп'ютером міста";
         } else if (!isRealCity(city)) {
             return "Такого міста немає в наданому списку, повторіть спробу";
         } else {
+            //addCityToResultList(city);
             return city;
         }
     }
@@ -57,6 +58,7 @@ public class LogicGame {
     public void addCityToResultList(String city) { // метод що додає гравцю бал та заносить місто до результуючого списку
         humanScore++;
         resultList.addLast(city);
+        //resultList.addLast(city.toLowerCase()); // конвертуємо введене місто до нижнього регістру перед додаванням
     }
 
     private void parseCityData() {         //метод для розбору даних з файлу JSON

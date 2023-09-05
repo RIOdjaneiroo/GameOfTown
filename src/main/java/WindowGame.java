@@ -86,9 +86,14 @@ public class WindowGame extends JFrame {
             JOptionPane.showMessageDialog(this, "Введіть місто перед натисканням кнопки 'Зробити хід'.", "Помилка", JOptionPane.ERROR_MESSAGE);
             return; // Перервати виконання методу, якщо місто не введено
         }
-        String result = logicGame.addToResultCity(city); // створюємо строкову змінну результату що заповнюється методом з логіки на основі переданого вище параметру
-        if (result.equals("Місто повинно починатись на літеру, яка є останньою в останньому слові списку")
-                || result.equals("Місто вже виказувалось, введіть інше") || result.equals("Такого міста немає в наданому списку, повторіть спробу")) {
+        if (logicGame.getResultList().stream().anyMatch(city::equalsIgnoreCase)) {    //це перевірка на дублювання вказаних міст без врахування регістру
+            JOptionPane.showMessageDialog(this, "Це місто вже виказувалось, спробуйте ввести інше", "Помилка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String result = logicGame.addToResultCity(city); // створюємо строкову змінну результату що заповнюється методом з логіки на основі переданого вище city
+
+        if (result.equals("Місто повинно починатись на останню літеру останнього написаного комп'ютером міста")
+                || result.equals("Такого міста немає в наданому списку, повторіть спробу")) {
             JOptionPane.showMessageDialog(this, result, "Помилка", JOptionPane.ERROR_MESSAGE);
         } else if (result.equals("Computer wins!")) {
             optinPanelResult("Комп'ютер переміг!");
