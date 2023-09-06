@@ -15,7 +15,7 @@ public class WindowGame extends JFrame {
     public WindowGame() {
         setTitle("Гра в міста");   // налаштовуємо заголовок вікна
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // встановлюємо, що вікно буде закриватись при натисканні на "х"
-        setSize(500, 400); // встановлюємо розмір вікна
+        setSize(400, 500); // встановлюємо розмір вікна
         setLocationRelativeTo(null);   //   по центру екрана
         setResizable(false);           // не змінюємо розмір вікна на екрані при запуску
         icon = new ImageIcon("src/main/java/favicon.png");
@@ -50,8 +50,8 @@ public class WindowGame extends JFrame {
 
         JPanel thirdPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10)); // Вирівнювання по центру, відступи
         // створюємо третю панель для виводу процесу гри
-        responseCompList = new JLabel("<html>привіт привіт привіт привіт привіт привіт привіт привіт привіт привіт привіт привіт привіт</html>");  // створюємо лейбл з вітанням
-        responseCompList.setPreferredSize(new Dimension(400, 50)); // Встановлюємо розмір мітки
+        responseCompList = new JLabel("<html>привіт</html>");  // створюємо лейбл з вітанням
+        responseCompList.setPreferredSize(new Dimension(300, 50)); // Встановлюємо розмір мітки
         responseCompList.setHorizontalAlignment(SwingConstants.LEFT); // Встановлюємо вирівнювання тексту зліва
         thirdPanel.add(responseCompList);
 
