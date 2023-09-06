@@ -39,10 +39,10 @@ public class ServiceCity {  //клас що буде використовува�
 		}
 	}
 
-	public List<String> getCity(String city) {
-		char lastChar = city.toLowerCase().charAt(city.length() - 1);
-		return secviceCity.stream()
-				.filter(i -> i.toLowerCase().charAt(0) == lastChar)
-				.collect(Collectors.toList());
+	public List<String> getCity(String city) {    // це публічний метод
+		char lastChar = city.toLowerCase().charAt(city.length() - 1); // бере останній символ переданого міста
+		return secviceCity.stream() // виводим відфільтрований список зі стріма
+				.filter(i -> i.toLowerCase().charAt(0) == lastChar) // де перша літера дорівнює останній переданого міста
+				.collect(Collectors.toList()); // збираємо колекцію
 	}
 }
