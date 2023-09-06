@@ -10,27 +10,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ServiceCity {
-	private final List<String> computerCity;
+public class ServiceCity {  //клас що буде використовуватись компом для вибору відповіді
+	private final List<String> secviceCity;  // створюємо список
 
 	public ServiceCity(String jsonFilePath) {
-		computerCity = loadCity(jsonFilePath);
+		secviceCity = loadCity(jsonFilePath);
 	}
-
-	private List<String> loadCity(String jsonFilePath) {
+	// в конструктор передаємо параметр строка підключення і викликаємо метод loadCity що формує список
+	private List<String> loadCity(String jsonFilePath) {   //приватний метод формує список з файла
 		try {
-			URL url = new URL(jsonFilePath);
+			URL url = new URL(jsonFilePath);   // строка підключення
 
-			InputStream inputStream = url.openStream();
+			InputStream inputStream = url.openStream(); // створюємо змінну типу InputStream
 			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-			Gson gson = new Gson();
+			// в буфферрідер кладем наш стрім
+			Gson gson = new Gson(); // створюємо обєкт типу жсон
 			DtoCity[] cityArray = gson.fromJson(reader, DtoCity[].class);
+			// робим масив дтошок в який складаємо прочитаний буфером файл
 
-			reader.close();
+			reader.close(); //закриваємо рідер
 
-			return List.of(cityArray).stream()
-					.map(DtoCity::getName)
-					.collect(Collectors.toList());
+			return List.of(cityArray).stream() //повертаємо список з масива стрімом
+					.map(DtoCity::getName)     // витягуємо імена
+					.collect(Collectors.toList()); // в колекцію
 		} catch (IOException e) {
 			e.printStackTrace();
 			return new ArrayList<>(); // Return an empty list in case of error
@@ -39,7 +41,7 @@ public class ServiceCity {
 
 	public List<String> getCity(String city) {
 		char lastChar = city.toLowerCase().charAt(city.length() - 1);
-		return computerCity.stream()
+		return secviceCity.stream()
 				.filter(i -> i.toLowerCase().charAt(0) == lastChar)
 				.collect(Collectors.toList());
 	}
